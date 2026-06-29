@@ -1,0 +1,29 @@
+# Bytecode-Dateien (von Python generiert)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtuelle Umgebungen (lokale Pakete)
+.venv/
+venv/
+ENV/
+env/
+
+# IDE- und Editor-Einstellungen 
+.vscode/
+.idea/
+.project
+.pydevproject
+
+# Build- und Distributionsdateien (z.B. von PyInstaller für .exe)
+build/
+dist/
+*.spec
+
+# Betriebssystem-Spezifische Dateien
+.DS_Store
+Thumbs.db
+
+# Logdateien und Absturzberichte
+*.log
