@@ -1,6 +1,9 @@
 # gui_ping_tool
 
-Deutsch | English 
+<p align="center">
+  <a href="#-deutsch">Deutsch</a> • 
+  <a href="#-english">English</a>
+</p>
 
 ---
 
