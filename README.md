@@ -41,7 +41,7 @@ Ein einfaches und benutzerfreundliches grafisches Werkzeug zur Überprüfung der
 3. Skript ausführen:
     
     ```bash
-    python main.py
+    python gui_ping_tool.py
     ```
     
 
@@ -81,5 +81,5 @@ A simple and user-friendly graphical tool for checking network connectivity via 
 3. Run the script:
     
     ```bash
-    python main.py
+    python gui_ping_tool.py
     ```
