@@ -1,29 +1,73 @@
-# Bytecode-Dateien (von Python generiert)
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
 
-# Virtuelle Umgebungen (lokale Pakete)
-.venv/
-venv/
-ENV/
-env/
+# C extensions
+*.so
 
-# IDE- und Editor-Einstellungen 
-.vscode/
-.idea/
-.project
-.pydevproject
-
-# Build- und Distributionsdateien (z.B. von PyInstaller für .exe)
+# Distribution / packaging
+bin/
 build/
+develop-eggs/
 dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller 
+*.manifest
 *.spec
 
-# Betriebssystem-Spezifische Dateien
-.DS_Store
-Thumbs.db
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
 
-# Logdateien und Absturzberichte
-*.log
+# Unit tests / Coverage reports
+htmlcov/
+.tox/
+.nosenv/
+.pytest_cache/
+. Moffat_cache/
+vulture_whitelist.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Project specific logs 
+ping_history.txt
+
+# Editors and IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.pydevproject
+.settings/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
