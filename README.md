@@ -1,118 +1,164 @@
-# Grafisches Ping-Werkzeug (Advanced GUI Ping Tool)
+<p align="center">
+  <ins><b><kbd>&nbsp;DESKTOP APPLICATION&nbsp;</kbd></b></ins>
+</p>
+
+<h1 align="center" style="font-size: 2.5rem; font-weight: 900; color: #1a1a1a; margin-top: 10px; margin-bottom: 10px; border-bottom: none;">
+  ⚡ ADVANCED NETWORK PING TOOL (v2.0)
+</h1>
 
 <p align="center">
-  <a href="#-deutsch">Deutsch</a> • 
-  <a href="#-english">English</a>
+  <strong>Ein modernes, threadsicheres ICMP-Diagnosewerkzeug mit grafischer Benutzeroberfläche und intelligenter Verlaufshistorie.</strong>
+  <br />
+  <i>Entwickelt mit Python, Tkinter und Multithreading für verzögerungsfreie Echtzeit-Netzwerkanalysen.</i>
+</p>
+
+<p align="center">
+  <a href="#-deutsch">🇩🇪 Deutsch</a> • 
+  <a href="#-english">🇺🇸 English</a> • 
+  <a href="#-русский">🇷🇺 Русский</a> • 
+  <a href="#-українська">🇺🇦 Українська</a>
 </p>
 
 ---
 
 ## 🇩🇪 Deutsch
 
+Die Anwendung bietet Netzwerkadministratoren und Entwicklern eine performante Oberfläche zur Echtzeit-Überwachung von Servern, Routern und Webseiten, ohne die UI während der Ping-Intervalle zu blockieren.
+
 ### 🚀 Funktionen
-* **Asynchroner Ping-Test**: Nahtlose Ausführung von Netzwerkanfragen im Hintergrund (Threading verhindert das Einfrieren der GUI bei der Host-Überprüfung).
-* **🔄 Endlos-Ping (Loop Mode)**: Kontinuierliche Überwachung eines Hosts im Sekundentakt für Echtzeit-Diagnosen.
-* **🔊 Audio-Benachrichtigung**: Automatisches akustisches Signal (System-Bell) bei Statusänderungen des Netzwerks (z. B. wenn ein Host offline geht).
-* **⚡ Schnellauswahl-Presets**: Integrierte Tasten für den Schnellzugriff auf `Localhost (127.0.0.1)`, `Router (GW)` und `Google DNS (8.8.8.8)`.
-* **Intelligente Latenz-Analyse**: Automatische Filterung der Konsolenausgabe über Regex zur exakten Extraktion der Paketlaufzeit in Millisekunden (ms) – kompatibel mit deutschen und englischen Betriebssystemen.
-* **Dynamische UI-Steuerung**: Der Prüf-Button passt sich autonom an (Start/Stopp-Logik), während das Eingabefeld im Loop-Modus gesperrt wird, um Fehlkonfigurationen zu vermeiden.
-* **Erweiterte Verlaufslogik**: Automatische Aufteilung der validierten Abfragen (unterstützt Hostnamen, IPv4 und IPv6) in Echtzeit auf zwei dedizierte Tabs ("Zuletzt verwendet" und "Häufig genutzt").
-* **Interaktive Listen**: Ein Doppelklick auf historische Einträge fügt die Adresse sofort in das Hauptfeld ein und wechselt den Tab.
-* **Persistente Speicherung**: Alle Abfragen bleiben durch die lokale Dateianbindung (`ping_history.txt`) auch nach Schließen der App vollständig erhalten.
+* **Asynchrones Multithreading 🧵**: Der Ping-Prozess läuft isoliert in einem Hintergrund-Thread (`threading.Thread`). Die grafische Oberfläche bleibt auch bei Verbindungsabbrüchen oder langen Timeouts zu 100% flüssig und bedienbar.
+* **Endlos-Schleife & Status-Tracker 🔄**: Option für kontinuierliche Netzwerk-Scans (Loop). Das Tool überwacht den Host ununterbrochen und bietet eine zuschaltbare Audio-Benachrichtigung bei Statusänderungen (Online ⇄ Offline).
+* **Intelligentes Verlaufs-Caching 📊**: Speichert alle Abfragen persistent in `ping_history.txt`. Über ein tabbasiertes Notebook-Layout werden automatisch die Top 10 der zuletzt verwendeten sowie der am häufigsten kontaktierten Hosts ermittelt.
+* **Cross-Plattform Parser 🌍**: Erkennt das zugrundeliegende Betriebssystem (Windows / Unix-Derivate) und passt die Ping-Parameter automatisch an. Reguläre Ausdrücke (RegEx) parsen die Latenzzeiten plattformübergreifend auf deutschen und englischen Systemen.
+* **Presets & Quick-Select ⚡**: Integrierte Schnellauswahl-Tasten für typische Diagnose-Ziele (`Localhost`, `Standard-Gateway`, `Google Public DNS`).
 
 ### 🛠️ Technologien
-* Python 3.10+
-* GUI-Framework: **Tkinter** mit modernem `ttk`-Layout ('clam' Theme)
-* Systemnahe Module: `subprocess` (mit unterdrücktem Konsolen-Flackern auf Windows via `STARTUPINFO`) und `platform`
-* Datenverarbeitung: Reguläre Ausdrücke (`re`) und asynchrone Threads (`threading`)
-* Datenspeicher: Lokale Dateiverbindung für transaktionssicheres Logging mit integrierter Bereinigungsfunktion
-
-### 📂 Struktur der Benutzeroberfläche
-Das Anwendungsfenster verwendet ein Tab-basiertes Layout:
-* **Ping-Test**: Ein zentraler Eingabebereich mit Fokus-Steuerung, Schnellauswahl-Leiste, Checkboxen für Loop/Sound und einem Status-Indikator, der über dynamische Farbcodierung (Grün/Rot) die Erreichbarkeit signalisiert.
-* **Zuletzt verwendet**: Eine historische Auflistung der letzten 10 kontaktierten Hosts in umgekehrter chronologischer Reihenfolge.
-* **Häufig genutzt**: Eine analytische Rangliste der am häufigsten abgefragten Netzwerkgeräte zur schnellen Diagnose.
+* **GUI-Framework**: Python Tkinter (modernisiert via `ttk`-Theming & Notebook-Komponenten)
+* **Prozess-Steuerung**: `subprocess` mit unterdrückten OS-Konsolenfenstern (`STARTF_USESHOWWINDOW`) unter Windows.
+* **RegEx-Engine**: `re` zur Filterung nativer Latenz-Strings (`ms`).
 
 ### 📦 Installation & Ausführung
 
-#### Option 1: Start über CLI (Entwicklungsmodus)
+#### Ausführung aus dem Quellcode
+Es wird eine Standard-Installation von Python 3.x benötigt. Das Tool nutzt ausschließlich native Bibliotheken – es sind **keine** `pip install`-Abhängigkeiten erforderlich.
+
 1. Repository klonen:
    ```bash
-   git clone https://github.com/KristinaAlokhina
+   git clone https://github.com
    ```
 2. In den Projektordner wechseln:
    ```bash
-   cd gui_ping_tool
+   cd network-ping-tool
    ```
-3. Anwendung ausführen:
+3. Die Anwendung starten:
    ```bash
-   python gui_ping_tool.py
+   python ping_tool.py
    ```
-
-#### Option 2: Eigenständige EXE-Datei erstellen (Windows)
-Falls Sie das Tool als portable Anwendung ohne Python-Installation nutzen möchten:
-1. `pyinstaller` installieren:
-   ```bash
-   pip install pyinstaller
-   ```
-2. Die ausführbare Datei generieren:
-   ```bash
-   python -m PyInstaller --noconsole --onefile gui_ping_tool.py
-   ```
-3. Die fertige App im neu erstellten Ordner `dist/` abholen.
 
 ---
 
 ## 🇺🇸 English
 
+A high-performance asynchronous ICMP diagnostic utility tailored for monitoring host availability, tracking latency fluctuations, and logging long-term network states.
+
 ### 🚀 Features
-* **Asynchronous Ping Engine**: Seamless execution of network requests in the background (Threading prevents GUI freezing during host checks).
-* **🔄 Continuous Ping (Loop Mode)**: Monitor network hosts dynamically with 1-second update intervals for live diagnosis.
-* **🔊 Audio Notifications**: Automatic system bell alert on host status changes (e.g., when a monitored host drops offline).
-* **⚡ Quick-Select Presets**: Dedicated single-click buttons for immediate access to `Localhost (127.0.0.1)`, `Router (GW)`, and `Google DNS (8.8.8.8)`.
-* **Smart Latency Parsing**: Automatic console output filtering via Regex to accurately extract packet round-trip times in milliseconds (ms) – compatible with English and German OS locales.
-* **Dynamic UI Control**: The action button adapts itself autonomously (Start/Stop logic) while locking the input field during loops to block duplicate overlapping requests.
-* **Advanced History Logic**: Real-time distribution of validated inputs (supporting hostnames, IPv4, and IPv6) into two dedicated tabs ("Recent" and "Frequent").
-* **Interactive List Boxes**: Double-clicking on historical entries immediately loads the address into the input field and switches tabs.
-* **Persistent Storage**: All diagnostic logs are securely stored locally and remain fully intact inside `ping_history.txt` after closing the application.
+* **Non-Blocking Multithreading 🧵**: Decouples subprocess network streams into dedicated worker threads, ensuring the UI Tkinter canvas never locks or freezes during transmission delays.
+* **Continuous Loop & Audio Alerts 🔄**: Supports automated endless ping executions alongside intelligent state tracking that triggers notification chimes when network states change.
+* **Advanced History Notebook 📊**: Tracks historical connection nodes inside `ping_history.txt`, dynamically populating dedicated UI list views for the "Top 10 Recent" and "Most Frequent" targets.
+* **Universal OS Regex Pipeline 🌍**: Fluidly maps parameters between Windows and Unix standards while regex definitions extract ping return latencies (`ms`) across varying system locales.
+* **Instant Target Presets ⚡**: Flash-binds frequent system endpoints (`Localhost`, `Router Gateway`, `Google DNS`) for accelerated interface dispatching.
 
 ### 🛠️ Technologies
-* Python 3.10+
-* GUI Framework: **Tkinter** utilizing modern `ttk` layouts ('clam' theme)
-* Core System Modules: `subprocess` (with suppressed console flickering on Windows via `STARTUPINFO`) and `platform`
-* Processing Power: Regular Expressions (`re`) and asynchronous multi-threading (`threading`)
-* Data Management: Plain-text local database integration with built-in clean-up functionality
-
-### 📂 User Interface Structure
-The interface window is divided into a versatile tabbed panel:
-* **Ping Test**: The main diagnostic hub featuring an auto-focused entry field, quick-preset bar, loop/sound checkboxes, and a status label with responsive color-coding (Green/Red).
-* **Recent**: A chronological feed tracking the last 10 tested hosts in reverse order for immediate lookup.
-* **Frequent**: An analytical leaderboard sorting the most heavily targeted network hosts for priority testing.
+* **Framework**: Python Tkinter (stylized with structural flat `ttk` parameters)
+* **Execution Core**: Native `subprocess` engine utilizing isolated `STARTUPINFO` pipes to hide system prompt screens.
+* **Data Logging**: Local UTF-8 flat-file log buffers mapping standard `datetime` stamps.
 
 ### 📦 Installation & Setup
 
-#### Option 1: Build from Source (CLI Mode)
+#### Running from Source
+Requires a standard Python 3.x environment. Built purely on standard library modules with zero third-party packages required.
+
 1. Clone the repository:
    ```bash
-   git clone https://github.com/KristinaAlokhina
+   git clone https://github.com
    ```
-2. Navigate to the project directory:
+2. Navigate to project root:
    ```bash
-   cd gui_ping_tool
+   cd network-ping-tool
    ```
-3. Run the application:
+3. Initialize the tool:
    ```bash
-   python gui_ping_tool.py
+   python ping_tool.py
    ```
 
-#### Option 2: Build a Standalone Executable (Windows)
-To run the utility as an independent portable `.exe` file without a Python environment:
-1. Install `pyinstaller`:
+---
+
+## 🇷🇺 Русский
+
+Продвинутая графическая утилита для диагностики сетевых соединений. Позволяет пинговать хосты в реальном времени, вести учет стабильности подключения и анализировать историю запросов.
+
+### 🚀 Возможности
+* **Асинхронный многопоточный движок 🧵**: Все сетевые запросы выполняются в фоновом режиме через `threading`. Графический интерфейс никогда не зависает и не блокируется, даже при потере пакетов или долгих таймаутах.
+* **Бесконечный цикл и звуковые алерты 🔄**: Режим непрерывного мониторинга (Endlos-Ping) со встроенным трекером изменений. Приложение может подавать звуковой сигнал при переходе хоста из Онлайн в Оффлайн и наоборот.
+* **Умные вкладки истории и статистики 📊**: Все запросы логируются в файл `ping_history.txt`. Программа автоматически вычисляет топ-10 последних и топ-10 самых часто используемых адресов, позволяя выбрать их двойным кликом.
+* **Кроссплатформенный парсинг (RegEx) 🌍**: Автоматически определяет тип ОС (Windows/Linux) и подбирает нужные флаги. Регулярные выражения адаптированы для парсинга времени отклика (`ms`) на русских, английских и немецких версиях систем.
+* **Панель быстрых пресетов ⚡**: Кнопки моментального выбора для базовых сетевых узлов (`Localhost`, `Роутер/Шлюз`, `Google DNS`).
+
+### 🛠️ Технологии
+* **Графика**: Python Tkinter (с использованием контейнеров `ttk.Notebook` и тем `clam`)
+* **Сетевой слой**: Модуль `subprocess` со скрытием системных окон консоли (`STARTF_USESHOWWINDOW`).
+* **Аналитика**: Библиотека `datetime` для фиксации точного времени проверок.
+
+### 📦 Установка и запуск
+
+#### Запуск из исходного кода
+Требуется только предустановленный пакет Python 3.x. Программа написана без использования сторонних зависимостей, устанавливать модули через `pip` не нужно.
+
+1. Клонируйте репозиторий:
    ```bash
-   pip install pyinstaller
+   git clone https://github.com
    ```
-2. Generate the binary file:
+2. Перейдите в папку проекта:
    ```bash
-   python -m PyInstaller --noconsole --onefile gui_ping_tool.py
+   cd network-ping-tool
    ```
-3. Retrieve your executable from the newly created `dist/` directory.
+3. Запустите сетевой монитор:
+   ```bash
+   python ping_tool.py
+   ```
+
+---
+
+## 🇺🇦 Українська
+
+Просунута графічна утиліта для діагностики мережевих з'єднань. Дозволяє пінгувати хости в реальному часі, вести облік стабільності підключення та аналізувати історію запитів.
+
+### 🚀 Можливості
+* **Асинхронний багатопотоковий движок 🧵**: Усі мережеві запити виконуються у фоновому режимі через `threading`. Графічний інтерфейс ніколи не зависає і не блокується, навіть при втраті пакетів або довгих таймаутах.
+* **Нескінченний цикл та звукові сповіщення 🔄**: Режим безперервного моніторингу (Endlos-Ping) із вбудованим трекером змін. Програма може подавати звуковий сигнал при переході хоста з Онлайн в Офлайн і навпаки.
+* **Розумні вкладки історії та статистики 📊**: Усі запити логуються у файл `ping_history.txt`. Програма автоматично обчислює топ-10 останніх та топ-10 найчастіше використовуваних адрес, дозволяючи вибрати їх подвійним кліком.
+* **Кросплатформений парсинг (RegEx) 🌍**: Автоматично визначає тип ОС (Windows/Linux) та підбирає потрібні прапори. Регулярні вирази адаптовані для парсингу часу відгуку (`ms`) на українських, англійських та німецьких версіях систем.
+* **Панель швидких пресетів ⚡**: Кнопки моментального вибору для базових мережевих вузлів (`Localhost`, `Роутер/Шлюз`, `Google DNS`).
+
+### 🛠️ Технології
+* **Графіка**: Python Tkinter (з використанням контейнерів `ttk.Notebook` та тем `clam`)
+* **Мережевий шар**: Модуль `subprocess` із приховуванням системних вікон консолі (`STARTF_USESHOWWINDOW`).
+* **Аналітика**: Бібліотека `datetime` для фіксації точного часу перевірок.
+
+### 📦 Встановлення та запуск
+
+#### Запуск із вихідного коду
+Вам знадобиться лише встановлений інтерпретатор Python 3.x. Програма написана без використання сторонніх залежностей, встановлювати модулі через `pip` не потрібно.
+
+1. Клонуйте репозиторій:
+   ```bash
+   git clone https://github.com
+   ```
+2. Перейдіть до папки проєкту:
+   ```bash
+   cd network-ping-tool
+   ```
+3. Запустіть мережевий монітор:
+   ```bash
+   python ping_tool.py
+   ```
